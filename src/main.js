@@ -69,6 +69,10 @@ const cleanName = (_str) => {
 };
 
 const getElements = (path) => {
+  var cnt = path.split("/").length;
+  var layerName = path.split("/")[cnt - 2];
+  const weightData = fs.readFileSync(`./layers/json/${layerName}.json`, {encoding:'utf8', flag:'r'});
+  const weightArr = JSON.parse(weightData);
   return fs
     .readdirSync(path)
     .filter((item) => !/(^|\/)\.[^\/\.]/g.test(item))
@@ -76,14 +80,38 @@ const getElements = (path) => {
       if (i.includes("-")) {
         throw new Error(`layer name can not contain dashes, please fix: ${i}`);
       }
+      console.log("----------");
+      console.log(i);
       return {
         id: index,
         name: cleanName(i),
         filename: i,
         path: `${path}${i}`,
-        weight: getRarityWeight(i),
+        weight: weightArr[index],
       };
     });
+};
+
+const addWeightToFile = (layersOrder) => {
+  const layers = layersOrder.map((layerObj, index) => {
+    const weightData = require(`${layersDir}/${layerObj.name}.json`);
+    const weightArr = Object.values(weightData);
+    fs.readdirSync(`${layersDir}/${layerObj.name}/`)
+    .filter((item) => !/(^|\/)\.[^\/\.]/g.test(item))
+    .map((i, index) => {
+      if (i.includes("-")) {
+        throw new Error(`layer name can not contain dashes, please fix: ${i}`);
+      }
+      console.log(weightArr[index] + " -- ");
+      // return {
+      //   id: index,
+      //   name: cleanName(i),
+      //   filename: i,
+      //   path: `${path}${i}`,
+      //   weight: getRarityWeight(i),
+      // };
+    });
+  });
 };
 
 const layersSetup = (layersOrder) => {
@@ -145,26 +173,26 @@ const addMetadata = (_dna, _edition) => {
     tempMetadata = {
       //Added metadata for solana
       name: tempMetadata.name,
-      symbol: solanaMetadata.symbol,
-      description: tempMetadata.description,
-      //Added metadata for solana
-      seller_fee_basis_points: solanaMetadata.seller_fee_basis_points,
+      // symbol: solanaMetadata.symbol,
+      // description: tempMetadata.description,
+      // //Added metadata for solana
+      // seller_fee_basis_points: solanaMetadata.seller_fee_basis_points,
       image: `${_edition}.png`,
       //Added metadata for solana
-      external_url: solanaMetadata.external_url,
-      edition: _edition,
-      ...extraMetadata,
+      // external_url: solanaMetadata.external_url,
+      // edition: _edition,
+      // ...extraMetadata,
       attributes: tempMetadata.attributes,
-      properties: {
-        files: [
-          {
-            uri: `${_edition}.png`,
-            type: "image/png",
-          },
-        ],
-        category: "image",
-        creators: solanaMetadata.creators,
-      },
+      // properties: {
+      //   files: [
+      //     {
+      //       uri: `${_edition}.png`,
+      //       type: "image/png",
+      //     },
+      //   ],
+      //   category: "image",
+      //   creators: solanaMetadata.creators,
+      // },
     };
   }
   metadataList.push(tempMetadata);
@@ -429,4 +457,4 @@ const startCreating = async () => {
   writeMetaData(JSON.stringify(metadataList, null, 2));
 };
 
-module.exports = { startCreating, buildSetup, getElements };
+module.exports = { startCreating, buildSetup, getElements, addWeightToFile };
