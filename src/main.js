@@ -69,10 +69,10 @@ const cleanName = (_str) => {
 };
 
 const getElements = (path) => {
-  var cnt = path.split("/").length;
-  var layerName = path.split("/")[cnt - 2];
-  const weightData = fs.readFileSync(`./layers/json/${layerName}.json`, {encoding:'utf8', flag:'r'});
-  const weightArr = JSON.parse(weightData);
+  // var cnt = path.split("/").length;
+  // var layerName = path.split("/")[cnt - 2];
+  // const weightData = fs.readFileSync(`./layers/json/${layerName}.json`, {encoding:'utf8', flag:'r'});
+  // const weightArr = JSON.parse(weightData);
   return fs
     .readdirSync(path)
     .filter((item) => !/(^|\/)\.[^\/\.]/g.test(item))
@@ -87,7 +87,7 @@ const getElements = (path) => {
         name: cleanName(i),
         filename: i,
         path: `${path}${i}`,
-        weight: weightArr[index],
+        weight: getRarityWeight(i),
       };
     });
 };
@@ -167,7 +167,7 @@ const addMetadata = (_dna, _edition) => {
     date: dateTime,
     ...extraMetadata,
     attributes: attributesList,
-    compiler: "HashLips Art Engine",
+    //compiler: "HashLips Art Engine",
   };
   if (network == NETWORK.sol) {
     tempMetadata = {
