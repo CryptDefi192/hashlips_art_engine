@@ -5,8 +5,8 @@ const { NETWORK } = require(`${basePath}/constants/network.js`);
 const network = NETWORK.eth;
 
 // General metadata for Ethereum
-const namePrefix = "Your Collection";
-const description = "Remember to replace this description";
+const namePrefix = "LCFC Genesis Chads";
+const description = "The first range of NFTs in the Lean Chad Fight Club Series with art inspired from cartoons of the early 1990s, where it all began...";
 const baseUri = "ipfs://NewUriToReplace";
 
 const solanaMetadata = {
@@ -24,15 +24,17 @@ const solanaMetadata = {
 // If you have selected Solana then the collection starts from 0 automatically
 const layerConfigurations = [
   {
-    growEditionSizeTo: 100,
+    growEditionSizeTo: 10000,
     layersOrder: [
       { name: "Background" },
-      { name: "Base Character" },
-      { name: "Face" },
-      { name: "Footwear" },
-      { name: "Outfit" },
-      { name: "Headwear" },
-      { name: "Hand" }
+      { name: "Shorts" },
+      { name: "Body" },
+      { name: "Acessories" },
+      { name: "Mouth" },
+      { name: "Hair" },
+      { name: "nose" },
+      { name: "eyes" },
+      { name: "Gloves" },
     ],
   },
 ];
@@ -42,8 +44,8 @@ const shuffleLayerConfigurations = false;
 const debugLogs = false;
 
 const format = {
-  width: 1500,
-  height: 1500,
+  width: 1089,
+  height: 812,
   smoothing: false,
 };
 
