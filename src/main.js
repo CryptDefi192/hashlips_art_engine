@@ -80,6 +80,7 @@ const getElements = (path) => {
       if (i.includes("-")) {
         throw new Error(`layer name can not contain dashes, please fix: ${i}`);
       }
+      
       console.log("----------");
       console.log(i);
       return {
@@ -162,7 +163,7 @@ const addMetadata = (_dna, _edition) => {
     name: `${namePrefix} #${_edition}`,
     description: description,
     image: `${baseUri}/${_edition}.png`,
-    dna: sha1(_dna),
+    //dna: sha1(_dna),
     edition: _edition,
     date: dateTime,
     ...extraMetadata,
