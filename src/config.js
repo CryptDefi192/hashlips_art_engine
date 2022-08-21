@@ -26,13 +26,14 @@ const layerConfigurations = [
   {
     growEditionSizeTo: 4444,
     layersOrder: [
-      { name: "background" },
-      { name: "skin" },
-      { name: "outfit" },
-      { name: "blush" },
-      { name: "eyes" },
-      { name: "hair" },
-      { name: "mouth" },
+      { name: "Background" },
+      { name: "Body" },
+      { name: "Mouth" },
+      { name: "Eyes" },
+      { name: "Hair" },
+      { name: "Shorts" },
+      { name: "Shirt" },
+      { name: "Sneakers" }
     ],
   },
 ];
@@ -42,8 +43,8 @@ const shuffleLayerConfigurations = false;
 const debugLogs = false;
 
 const format = {
-  width: 630,
-  height: 630,
+  width: 1920,
+  height: 1920,
   smoothing: true,
 };
 
